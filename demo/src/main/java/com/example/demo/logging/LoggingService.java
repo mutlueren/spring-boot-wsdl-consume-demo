@@ -18,6 +18,6 @@ public class LoggingService {
 	}
 	
 	public void error(String methodName) {
-		logger.info("ERROR method: " + methodName);
+		logger.error("ERROR method: " + methodName);
 	}
 }
