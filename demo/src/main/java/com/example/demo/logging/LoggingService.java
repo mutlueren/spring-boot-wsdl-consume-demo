@@ -39,4 +39,5 @@ public class LoggingService {
 		String methodName = joinPoint.getSignature().getName();
 		logger.error("ERROR in method: " + methodName + " - Exception: " + e.getMessage());
 	}
+
 }
