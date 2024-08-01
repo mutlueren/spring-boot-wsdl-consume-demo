@@ -11,11 +11,7 @@ import com.example.demo.client.SoapClient;
 public class SoapController {
 
 	@Autowired
-	private final SoapClient soapClient;
-
-	public SoapController(SoapClient soapClient) {
-		this.soapClient = soapClient;
-	}
+	private SoapClient soapClient;
 
 	@GetMapping("/add")
 	public Integer add(@RequestParam Integer num1, @RequestParam Integer num2) {

@@ -1,5 +1,8 @@
 package com.example.demo.logging;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.aspectj.lang.JoinPoint;
@@ -16,28 +19,29 @@ public class LoggingService {
 
 	private static final Logger logger = LogManager.getLogger(LoggingService.class);
 
-	@Pointcut("execution(* com.example.demo..*(..))")
-	public void applicationPackagePointcut() {
-		// Method is empty as this is just a Pointcut, the implementations are in the
-		// advices.
+	@Pointcut("execution(* com.example.demo.client..*(..))")
+	public void configPackagePointcut() {
+	    // pointcut tanımı olarak işlev görür ve genellikle boş bırakılır çünkü kendisi bir "ad" veya "etiket" sağlar, Aspect loglama yapılacak paket burada tanıtılır
 	}
 
-	@Before("applicationPackagePointcut()")
+	@Before("configPackagePointcut()")
 	public void before(JoinPoint joinPoint) {
 		String methodName = joinPoint.getSignature().getName();
-		logger.info("Before method: " + methodName);
+		List<Object> argsList = Arrays.asList(joinPoint.getArgs());
+		logger.info("Before method: " + methodName + " - First Arg: " + argsList.get(0) + " - Second Arg: " + argsList.get(1));
 	}
 
-	@After("applicationPackagePointcut()")
+	@After("configPackagePointcut()")
 	public void after(JoinPoint joinPoint) {
 		String methodName = joinPoint.getSignature().getName();
-		logger.info("After method: " + methodName);
+		List<Object> argsList = Arrays.asList(joinPoint.getArgs());
+		logger.info("After method: " + methodName + " - First Arg: " + argsList.get(0) + " - Second Arg: " + argsList.get(1));
 	}
 
-	@AfterThrowing(pointcut = "applicationPackagePointcut()", throwing = "e")
+	@AfterThrowing(pointcut = "configPackagePointcut()", throwing = "e")
 	public void error(JoinPoint joinPoint, Throwable e) {
-		String methodName = joinPoint.getSignature().getName();
-		logger.error("ERROR in method: " + methodName + " - Exception: " + e.getMessage());
+		String methodName = joinPoint.getSignature().getName();		
+		List<Object> argsList = Arrays.asList(joinPoint.getArgs());
+		logger.info("ERROR in method: " + methodName + " - First Arg: " + argsList.get(0) + " - Second Arg: " + argsList.get(1));
 	}
-
 }
