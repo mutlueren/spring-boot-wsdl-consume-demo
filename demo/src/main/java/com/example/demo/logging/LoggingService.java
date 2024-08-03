@@ -42,6 +42,6 @@ public class LoggingService {
 	public void error(JoinPoint joinPoint, Throwable e) {
 		String methodName = joinPoint.getSignature().getName();		
 		List<Object> argsList = Arrays.asList(joinPoint.getArgs());
-		logger.info("ERROR in method: " + methodName + " - First Arg: " + argsList.get(0) + " - Second Arg: " + argsList.get(1));
+		logger.error("ERROR in method: " + methodName + " - First Arg: " + argsList.get(0) + " - Second Arg: " + argsList.get(1));
 	}
 }
